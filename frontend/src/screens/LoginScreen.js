@@ -20,12 +20,16 @@ const LoginScreen = () => {
 
   const location = useLocation();
   const redirect = location.search ? location.search.split("=")[1] : "/";
-  // console.log("loginscreen se ", redirect);
+  // console.log("no useEffect and loginscreen se ", redirect);
 
   useEffect(() => {
     if (userInfo) {
       // console.log("useEffect fired off when userInfo exist");
-      navigate(redirect);
+      if (redirect == "/") {
+        navigate("/");
+      } else if (redirect == "shipping") {
+        navigate("/shipping");
+      }
       // console.log("loginscreen useeffect se", redirect);
     }
   }, [navigate, userInfo, redirect]);

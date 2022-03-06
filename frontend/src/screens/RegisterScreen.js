@@ -27,7 +27,15 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      //before
+      // navigate(redirect)  it was not working.. i dont know why
+
+      // Now below code working fine
+      if (redirect == "/") {
+        navigate("/");
+      } else if (redirect == "shipping") {
+        navigate("/shipping");
+      }
     }
   }, [userInfo, navigate, redirect]);
 
