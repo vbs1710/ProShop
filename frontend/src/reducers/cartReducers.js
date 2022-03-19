@@ -1,6 +1,14 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_PAYMENT_METHOD,
+  CART_SAVE_SHIPPING_ADDRESS,
+} from "../constants/cartConstants";
 
-export const cartReducer = (state = { cartItem: [] }, action) => {
+export const cartReducer = (
+  state = { cartItem: [], shippingAddress: {} },
+  action
+) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload;
@@ -25,6 +33,16 @@ export const cartReducer = (state = { cartItem: [] }, action) => {
       return {
         ...state,
         cartItems: state.cartItems.filter((x) => x.product !== action.payload), // ismei filter iss logic se hoga ki agar x ki id delete hone wale ki id(ye id humei payload se aa rhi h action ke through) ke barabar ho gyi toh usey filter kr denge warna array ko same rehne denge....basic vo id wala product chai mei jese chaipatti chaante h vese chan jaayega........
+      };
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
       };
 
     default:
