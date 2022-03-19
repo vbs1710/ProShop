@@ -4,7 +4,7 @@ import path from "path";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import colors from "colors";
-
+import pkg from "cloudinary";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
@@ -17,6 +17,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+const cloudinary = pkg;
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev")); // isse console mei route aur kuch time wagera print ho jaayega... morgan mei alag alag argument dekr alag kaam ho skte h
@@ -26,6 +27,12 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("API is running...");
+});
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
 app.use("/api/products", productRoutes);
